@@ -9,3 +9,11 @@ python train_tacotron.py
 
 python train_vocoder.py
 
+
+python synthesizer.py --load_path logdir-tacotron/kss_2020-06-04_23-26-36 --num_speakers 1 --speaker_id 0 --text "연세대학교 인공지능 전공 화이팅"
+
+python synthesizer.py --load_path models/tacotron/ --num_speakers 1 --speaker_id 0 --text "채명하 그만먹고 살빼라"
+
+python synthesizer.py --load_path logdir-tacotron/kss_2020-06-04_23-26-36 --num_speakers 1 --speaker_id 0 --text "오스트랄로피테쿠스 아파렌시스는 멸종된 사람족 종으로, 현재에는 뼈 화석이 발견되어 있다."
+
+python generate.py --mel ./logdir-tacotron/generate/2020-06-11_21-44-19.npy --gc_cardinality 2 --gc_id 0 ./logdir-wavenet/train/2020-06-11T22-57-47

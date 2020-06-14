@@ -33,7 +33,7 @@ def main():
     
     parser = argparse.ArgumentParser(description='WaveNet example network')
     
-    DATA_DIRECTORY =  '.\\data\\moon,.\\data\\son'
+    DATA_DIRECTORY =  './data/kss,./data/son'
     parser.add_argument('--data_dir', type=str, default=DATA_DIRECTORY, help='The directory containing the VCTK corpus.')
 
 
@@ -94,7 +94,8 @@ def main():
         if gc_enable:
             audio_batch, lc_batch, gc_id_batch = reader.inputs_wav, reader.local_condition, reader.speaker_id
         else:
-            audio_batch, lc_batch = reader.inputs_wav, self.local_condition
+            print("didn't work")
+            #audio_batch, lc_batch = reader.inputs_wav, local_condition
 
     # Create network.
     net = WaveNetModel(

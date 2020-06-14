@@ -21,6 +21,8 @@ from utils import get_git_revision_hash, get_git_diff, str2bool, parallel_run
 from utils.audio import save_wav, inv_spectrogram
 from text import sequence_to_text, text_to_sequence
 from datasets.datafeeder_tacotron import DataFeederTacotron, _prepare_inputs
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
@@ -165,11 +167,13 @@ def train(log_dir, config):
     saver = tf.train.Saver(max_to_keep=None, keep_checkpoint_every_n_hours=2)
 
     sess_config = tf.ConfigProto(log_device_placement=False,allow_soft_placement=True)
+    #sess_config.gpu_options.allow_growth=True
+    #sess_config = tf.ConfigProto(log_device_placement=True)
     sess_config.gpu_options.allow_growth=True
 
     # Train!
-    #with tf.Session(config=sess_config) as sess:
-    with tf.Session() as sess:
+    with tf.Session(config=sess_config) as sess:
+    #with tf.Session() as sess:
         try:
             summary_writer = tf.summary.FileWriter(log_dir, sess.graph)
             sess.run(tf.global_variables_initializer())
@@ -267,7 +271,7 @@ def main():
     
     parser.add_argument('--initialize_path', default=None)   # ckpt로 부터 model을 restore하지만, global step은 0에서 시작
 
-    parser.add_argument('--batch_size', type=int, default=32)
+    parser.add_argument('--batch_size', type=int, default=128)
     parser.add_argument('--num_test_per_speaker', type=int, default=1)
     parser.add_argument('--random_seed', type=int, default=123)
     parser.add_argument('--summary_interval', type=int, default=100000)
