@@ -120,7 +120,7 @@ hparams = tf.contrib.training.HParams(
     
 
     # Model
-    model_type = 'single', # [single, simple, deepvoice]
+    model_type = 'deepvoice', # [single, simple, deepvoice]
     speaker_embedding_size  = 16, 
 
     embedding_size = 256,    # 'ᄀ', 'ᄂ', 'ᅡ' 에 대한 embedding dim
